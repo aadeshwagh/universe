@@ -13,6 +13,12 @@
       document.getElementById('output').innerHTML = 'Device Orientation API is not supported in this browser.';
     }
 
+    function degreesToCardinal(degrees) {
+      const cardinalDirections = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+      const index = Math.round(((degrees % 360) / 45)) % 8;
+      return cardinalDirections[index];
+    }
+
     function handleOrientation(event) {
       // Get the device's orientation angles (alpha, beta, gamma) from the event object.
       const alpha = event.alpha;
@@ -29,8 +35,11 @@
           direction -= 360;
         }
 
-        // Print the direction you are facing.
-        document.getElementById('output').innerHTML = `You are facing: ${direction.toFixed(2)}°`;
+        // Get the cardinal direction.
+        const cardinalDirection = degreesToCardinal(direction);
+
+        // Print the cardinal direction you are facing.
+        document.getElementById('output').innerHTML = `You are facing: ${cardinalDirection}`;
       } else {
         // Handle the case when the alpha value is not valid (e.g., device doesn't support compass).
         document.getElementById('output').innerHTML = 'Cannot determine direction. Compass not available.';
