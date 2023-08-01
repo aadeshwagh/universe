@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Device Orientation API Example</title>
+</head>
+<body>
+  <div id="output"></div>
+
+  <script>
+    if ('DeviceOrientationEvent' in window) {
+      window.addEventListener('deviceorientation', handleOrientation, true);
+    } else {
+      document.getElementById('output').innerHTML = 'Device Orientation API is not supported in this browser.';
+    }
+
+    function handleOrientation(event) {
+      // Get the device's orientation angles (alpha, beta, gamma) from the event object.
+      const alpha = event.alpha;
+
+      // Check if the alpha value is valid (not null or undefined).
+      if (alpha !== null && alpha !== undefined) {
+        // Calculate the direction you are facing based on the alpha (compass heading) value.
+        let direction = 360 - alpha; // Convert to compass heading (0° North, 90° East, 180° South, 270° West).
+
+        // Normalize the direction to be within the range [0, 360).
+        if (direction < 0) {
+          direction += 360;
+        } else if (direction >= 360) {
+          direction -= 360;
+        }
+
+        // Print the direction you are facing.
+        document.getElementById('output').innerHTML = `You are facing: ${direction.toFixed(2)}°`;
+      } else {
+        // Handle the case when the alpha value is not valid (e.g., device doesn't support compass).
+        document.getElementById('output').innerHTML = 'Cannot determine direction. Compass not available.';
+      }
+    }
+  </script>
+</body>
+</html>
