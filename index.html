@@ -14,7 +14,7 @@
     }
 
     function degreesToCardinal(degrees) {
-      const cardinalDirections = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+      const cardinalDirections = ['North', 'North East', 'East', 'South East', 'South', 'South West', 'West', 'North West'];
       const index = Math.round(((degrees % 360) / 45)) % 8;
       return cardinalDirections[index];
     }
@@ -36,7 +36,7 @@
         }
 
         // Get the cardinal direction.
-        const cardinalDirection = degreesToCardinal(direction);
+        const cardinalDirection = degreesToCardinal(direction + 180);
 
         // Print the cardinal direction you are facing.
         document.getElementById('output').innerHTML = `You are facing: ${cardinalDirection}`;
